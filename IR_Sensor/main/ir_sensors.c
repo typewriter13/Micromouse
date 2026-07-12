@@ -1,15 +1,41 @@
 #include "ir_sensors.h"
 #include "esp_adc/adc_oneshot.h"
 
-// TODO: a static variable to hold the ADC handle (so both functions below can use it)
+static adc_oneshot_unit_handle_t adc_handle;
 
 esp_err_t init_ir_sensors(void) {
-    // TODO: 1. create the ADC unit
-    // TODO: 2. loop through NUM_IR_SENSORS, configure each channel using IR_SENSOR_CHANNELS[i]
-    // TODO: 3. return ESP_OK (or an error if something failed)
+    adc_oneshot_unit_init_cfg_t init_config = {
+        .unit_id = ADC_UNIT_1,
+    };
+
+    esp_err_t ret = adc_oneshot_new_unit(&init_config, &adc_handle);
+    if (ret != ESP_OK) {
+        return ret;
+    }
+
+    adc_oneshot_chan_cfg_t chan_config = {
+        .bitwidth = ADC_BITWIDTH_DEFAULT,
+        .atten = ADC_ATTEN_DB_12,
+    };
+
+    for (int i = 0; i < NUM_IR_SENSORS; i++) {
+        ret = adc_oneshot_config_channel(adc_handle, IR_SENSOR_CHANNELS[i], &chan_config);
+        if (ret != ESP_OK) {
+            return ret;
+        }
+    }
+
+    return ESP_OK;
 }
 
 esp_err_t read_ir_sensors(ir_sensor_reading_t *reading) {
-    // TODO: loop through NUM_IR_SENSORS, call adc_oneshot_read() for each channel, store into reading->readings[i]
-    // TODO: return ESP_OK
+    for (int i = 0; i < NUM_IR_SENSORS; i++) {
+        int raw = 0;
+        esp_err_t ret = adc_oneshot_read(adc_handle, IR_SENSOR_CHANNELS[i], &raw);
+        if (ret != ESP_OK) {
+            return ret;
+        }
+        reading->readings[i] = raw;
+    }
+    return ESP_OK;
 }
