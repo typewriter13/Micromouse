@@ -544,8 +544,8 @@
   "pcbnew": {
     "last_paths": {
       "idf": "",
-      "netlist": "",
-      "plot": "",
+      "netlist": "./",
+      "plot": "gerbers/",
       "specctra_dsn": "",
       "vrml": ""
     },
@@ -843,7 +843,7 @@
         "uuid": "032a61e7-f02f-4f6f-a211-c22be2555250"
       }
     ],
-    "used_designators": "#PWR8,#PWR10,D1-2,D19-20,R19,R21,J3,#FLG2",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
