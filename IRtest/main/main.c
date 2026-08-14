@@ -1,5 +1,5 @@
-#include "ir.c"
-#include "pindef.h"
+#include "../src/ir.c"
+#include "../include/pindef.h"
 #include <esp_adc/adc_oneshot.h>
 
 void app_main(void)
