@@ -9,21 +9,23 @@
 #define slow_duty_cycle 10.0
 #define fast_duty_cycle 60.0
 
-#define left_turn_threshold 4000
-#define right_turn_threshold 4000
+#define left_turn_threshold 3900
+#define right_turn_threshold 3900
 
-#define Kp 0.008f
+#define Kp 0.005f
 #define Kd 0.0005f
-#define dt 0.1f
+#define dt 0.01f
 
 float pd_correction(int right_reading, int left_reading)
 {
     static float last_error = 0.0f;
     float error = (float)(right_reading - left_reading);
+    printf("Error: %f\n", error);
     float derivative = (error - last_error) / dt;
     last_error = error;
 
     float correction = Kp * error + Kd * derivative;
+    printf("Correction: %f\n", correction);
     return correction;
 }
 
@@ -54,11 +56,11 @@ void app_main(void)
             right_motor_duty = slow_duty_cycle;
             left_motor_duty = fast_duty_cycle;
         } else {
-            float correction = pd_correction(right_reading, left_reading);
-            left_motor_duty = Duty_cycle + correction;
-            right_motor_duty = Duty_cycle - correction;
+        float correction = pd_correction(right_reading, left_reading);
+        left_motor_duty = Duty_cycle + correction;
+        right_motor_duty = Duty_cycle - correction;
         }
-
+         
         if (left_motor_duty > Max_duty_cycle)
             left_motor_duty = Max_duty_cycle;
         if (right_motor_duty > Max_duty_cycle)

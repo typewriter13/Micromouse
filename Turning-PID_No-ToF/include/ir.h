@@ -7,10 +7,10 @@
 #include "driver/gpio.h"
 #include "esp_adc/adc_oneshot.h"
 
-#define IR_PIN_0 ADC_CHANNEL_2  //GPIO 3 Right
-#define IR_PIN_1 ADC_CHANNEL_8  //GPIO 9 Left
-#define IR_PIN_2 ADC_CHANNEL_9  //GPIO 10 Left Diagonal
-#define IR_PIN_3 ADC_CHANNEL_7  //GPIO 8 Right Diagonal
+#define IR_PIN_0 ADC_CHANNEL_2  // Right
+#define IR_PIN_1 ADC_CHANNEL_8  // Left
+#define IR_PIN_2 ADC_CHANNEL_9  // Left Diagonal
+#define IR_PIN_3 ADC_CHANNEL_7  // Right Diagonal
 
 extern adc_channel_t IR_PINS[4];
 extern const char* sensor_names[4];
