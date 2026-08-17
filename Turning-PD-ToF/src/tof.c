@@ -32,7 +32,7 @@ uint16_t tof_read_distance(void) {
     if (i2c_read_reg(TOF_SENSOR_ADDR, TOF_SENSOR_REG_RESULT_RANGE_VAL, dist_data, 2) == ESP_OK) {
         uint16_t dist = ((dist_data[0] << 8) | dist_data[1]) / 2;
 
-        if (dist < 30 || dist > 1200) {
+        if (dist < 20 || dist > 1200) {
             return 9999;
         }
         return dist;
