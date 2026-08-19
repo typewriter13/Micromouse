@@ -1,10 +1,7 @@
 #include "../include/motor.h"
-#define TURN_DUTY         17.0f
-#define LEFT_TURN_TIME_MS  225
-#define RIGHT_TURN_TIME_MS 225
-#define UTURN_TIME_MS      35
-#define slow_duty_cycle 16.0
-#define fast_duty_cycle 24.0
+#define UTURN_TIME_MS   35
+#define slow_duty_cycle 21
+#define fast_duty_cycle 33.0
 
 
 void initialize_pwm_gpio_pins()
@@ -68,7 +65,7 @@ void turn_left(void)
 {
     pwm_left_motor_run(slow_duty_cycle);
     pwm_right_motor_run(fast_duty_cycle);
-    vTaskDelay(LEFT_TURN_TIME_MS / portTICK_PERIOD_MS);
+    vTaskDelay(10/ portTICK_PERIOD_MS);
     pwm_motors_brake();
 }
 
@@ -76,14 +73,14 @@ void turn_right(void)
 {
     pwm_left_motor_run(fast_duty_cycle);
     pwm_right_motor_run(slow_duty_cycle);
-    vTaskDelay(RIGHT_TURN_TIME_MS / portTICK_PERIOD_MS);
+    vTaskDelay(10 / portTICK_PERIOD_MS);
     pwm_motors_brake();
 }
 
 void turn_around(void)
 {
-    pwm_left_motor_reverse(45);
-    pwm_right_motor_run(17);
+    pwm_left_motor_run(30);
+    pwm_right_motor_reverse(30);
     vTaskDelay(UTURN_TIME_MS / portTICK_PERIOD_MS);
     pwm_motors_brake();
 }

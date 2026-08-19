@@ -11,22 +11,22 @@
 #include "../include/tof.h"
 
 
-#define Duty_cycle 16.0
+#define Duty_cycle 18.0
 #define Max_duty_cycle 70.0
 #define Min_duty_cycle 0.0
-#define slow_duty_cycle 16.0
-#define fast_duty_cycle 23.0
+#define slow_duty_cycle 21.0
+#define fast_duty_cycle 33.0
 #define dt 0.1f
-#define TURN_DUTY         17.0f
-#define LEFT_TURN_TIME_MS  225
-#define RIGHT_TURN_TIME_MS 255
-#define UTURN_TIME_MS      35
-#define front_wall_stop_distance 42
+#define UTURN_TIME_MS 35
+#define wall_distance 42
+#define turn_tof_sensor 0
 
-volatile float Kp = 0.003f;
-volatile float Kd = 0.0005f;
-volatile int left_turn_threshold = 3900;
-volatile int right_turn_threshold = 3900;
+
+volatile float Kp = 0.006f;
+volatile float Kd = 0.0009f;
+volatile int left_turn_threshold = 4000;
+volatile int right_turn_threshold = 4000;
+
 float correction;
 
 
@@ -71,9 +71,10 @@ void app_main(void)
 
         printf("Right: %d  Left: %d  Left Diag: %d  Right Diag: %d  ToF: %d \n", right_reading, left_reading, left_diag_reading, right_diag_reading, distance);
 
-        bool left_open  = (left_diag_reading  > left_turn_threshold);
-        bool front_open = (distance > front_wall_stop_distance);
-        bool right_open = (right_diag_reading > right_turn_threshold);
+        bool left_open  = (left_diag_reading  > left_turn_threshold );
+        bool front_open = (distance > wall_distance );
+        bool front_close = (distance < wall_distance);
+        bool right_open = (right_diag_reading > right_turn_threshold );
 
         int decision;
         if (left_open) {
@@ -82,25 +83,17 @@ void app_main(void)
             decision = 2;
         } else if (right_open) {
             decision = 3;
-        } else {
+        } else if (front_close) {
             decision = 4;
+        }
+        else {
+            decision = 5;
         }
 
         switch (decision)
         {
             case 1:
                 turn_left();
-                 correction = pd_correction(right_reading, left_reading);
-                left_motor_duty  = Duty_cycle + correction;
-                right_motor_duty = Duty_cycle - correction;
-
-                if (left_motor_duty  > Max_duty_cycle) left_motor_duty  = Max_duty_cycle;
-                if (right_motor_duty > Max_duty_cycle) right_motor_duty = Max_duty_cycle;
-                if (left_motor_duty  < Min_duty_cycle) left_motor_duty  = Min_duty_cycle;
-                if (right_motor_duty < Min_duty_cycle) right_motor_duty = Min_duty_cycle;
-
-                pwm_left_motor_run(left_motor_duty);
-                pwm_right_motor_run(right_motor_duty);
                 break;
                 
 
@@ -122,34 +115,17 @@ void app_main(void)
 
             case 3:
                 turn_right();
-                 correction = pd_correction(right_reading, left_reading);
-                left_motor_duty  = Duty_cycle + correction;
-                right_motor_duty = Duty_cycle - correction;
-
-                if (left_motor_duty  > Max_duty_cycle) left_motor_duty  = Max_duty_cycle;
-                if (right_motor_duty > Max_duty_cycle) right_motor_duty = Max_duty_cycle;
-                if (left_motor_duty  < Min_duty_cycle) left_motor_duty  = Min_duty_cycle;
-                if (right_motor_duty < Min_duty_cycle) right_motor_duty = Min_duty_cycle;
-
-                pwm_left_motor_run(left_motor_duty);
-                pwm_right_motor_run(right_motor_duty);
                 break;
 
             case 4:
-            default:
+        
                 turn_around();
-                 correction = pd_correction(right_reading, left_reading);
-                left_motor_duty  = Duty_cycle + correction;
-                right_motor_duty = Duty_cycle - correction;
-
-                if (left_motor_duty  > Max_duty_cycle) left_motor_duty  = Max_duty_cycle;
-                if (right_motor_duty > Max_duty_cycle) right_motor_duty = Max_duty_cycle;
-                if (left_motor_duty  < Min_duty_cycle) left_motor_duty  = Min_duty_cycle;
-                if (right_motor_duty < Min_duty_cycle) right_motor_duty = Min_duty_cycle;
-
-                pwm_left_motor_run(left_motor_duty);
-                pwm_right_motor_run(right_motor_duty);
+                
                 break;
+            
+            case 5:
+            default : 
+            pwm_motors_brake() ;    
         }
 
         vTaskDelay(10 / portTICK_PERIOD_MS);
