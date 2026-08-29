@@ -1,32 +1,20 @@
 # Micromouse
 
 MicroMouse is a small autonomous robot designed to navigate and solve a maze completely on its own.
-
-## Table of Contents
-
-- [About The Project](#about-the-project)
-- [Project Overview](#project-overview)
-  - [Project Workflow](#project-workflow)
-  - [Hardware Used](#hardware-used)
-  - [Pinout Mapping](#pinout-mapping)
-- [CAD and PCB Models](#cad-and-pcb-models)
-  - [PCB Model](#pcb-model)
-  - [CAD Models](#cad-models)
-- [System Architecture & Logic](#system-architecture--logic)
-  - [Sensor Logic](#sensor-logic)
-  - [Motor Logic](#motor-logic)
-  - [Left Hand Follow Algorithm](#left-hand-follow-algorithm)
-  - [Web UI & Live Tuning](#web-ui--live-tuning)
-- [Future Work](#future-work)
-- [Installation and Setup](#installation-and-setup)
-- [Contributors](#contributors)
-- [Acknowledgements](#acknowledgements)
+![alt text](Assets/About-the-project.jpg)
 
 ## About The Project
 
 Our project is about a wall-following micromouse robot built on ESP32-S3, using IR proximity sensors for wall-centering and junction detection, a VL53L0X ToF sensor for front-wall stopping, quadrature encoders for wheel feedback, and a WiFi-based web UI for live tuning of PID gains, thresholds, and duty cycle limits.
 
-![alt text](Assets/About-the-project.jpg)
+<p align="center">
+  <a href="https://youtu.be/bc_Xk7g2EeM" target="_blank">
+    <img src="https://img.youtube.com/vi/bc_Xk7g2EeM/maxresdefault.jpg" width="48%" alt="PCB Moving Demo" />
+  </a>
+  <a href="https://youtube.com/shorts/5PlMwJj3upM" target="_blank">
+    <img src="https://img.youtube.com/vi/5PlMwJj3upM/maxresdefault.jpg" width="48%" alt="PCB U-Turn Demo" />
+  </a>
+</p>
 
 ## Project Overview
 
@@ -66,6 +54,28 @@ Our project is about a wall-following micromouse robot built on ESP32-S3, using 
 ### CAD Models
 
 ![alt text](Assets/CAD-Models.jpg)
+
+## Installation and Setup
+
+Prerequisites:
+1. ESP-IDF v5.5 
+2. Git
+3. Python 3.10 or higher
+
+**Setup:**
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/typewriter13/Micromouse
+   cd Micromouse
+   cd LeftWallFollow
+2. **Configure and Build**
+   ```bash
+   idf.py set-target esp32s3
+   idf.py build
+3. **Flashing the Project**
+   ```bash
+   idf.py flash monitor
+
 
 ## System Architecture & Logic
 
@@ -108,33 +118,3 @@ The ESP32-S3 hosts a lightweight HTTP server allowing real-time calibration over
 - Implementing Left hand Follow algorithm tuned according to the Maze which we have designed.
 - Work and study many more algorithms which are more efficient than LHF.
 - Integrate the encoder readings with our path calculations of the bot for mapping the maze and reading the distance travelled.
-
-## Installation and Setup
-
-Prerequisites:
-1. ESP-IDF v5.5 
-2. Git
-3. Python 3.10 or higher
-
-**Setup:**
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/typewriter13/Micromouse
-   cd Micromouse
-2. **Configure and Build**
-   ```bash
-   idf.py set-target esp32s3
-   idf.py build
-3. **Flashing the Project**
-   ```bash
-   idf.py flash monitor
-## Contributors
-
-- [Shreyas Punde](https://github.com/Shreyas472)
-- [Shwet Kinge](https://github.com/shwetk0209)
-- [Siddhant Deshpande](https://github.com/typewriter13)
-
-## Acknowledgements
-
-- SRA Eklavya 2026
-- Our mentors for the project [Varun Patil](https://github.com/VarunAPatil) and [Paarth Shirsat](https://github.com/Paarth-Shirsat)
