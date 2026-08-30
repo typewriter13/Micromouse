@@ -11,6 +11,9 @@
 #define MOTOR_PIN_1A 6
 #define MOTOR_PIN_1B 7
 
+extern volatile float max_duty_cycle;
+extern volatile float min_duty_cycle;
+
 void initialize_pwm_gpio_pins();
 void pwm_gpio_configuration();
 void pwm_left_motor_run(float duty_cycle);

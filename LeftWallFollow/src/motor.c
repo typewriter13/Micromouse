@@ -1,8 +1,5 @@
 #include "../include/motor.h"
 
-#define max_duty_cycle 60
-#define min_duty_cycle 10
-
 void initialize_pwm_gpio_pins()
 {
     mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, MOTOR_PIN_0A);
@@ -80,6 +77,6 @@ void turn_around(void)
 {
     pwm_right_motor_run(30.0);
     pwm_left_motor_reverse(30.0);
-    vTaskDelay(10 / portTICK_PERIOD_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
     pwm_motors_brake();
 }

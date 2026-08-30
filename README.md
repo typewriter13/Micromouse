@@ -7,14 +7,8 @@ MicroMouse is a small autonomous robot designed to navigate and solve a maze com
 
 Our project is about a wall-following micromouse robot built on ESP32-S3, using IR proximity sensors for wall-centering and junction detection, a VL53L0X ToF sensor for front-wall stopping, quadrature encoders for wheel feedback, and a WiFi-based web UI for live tuning of PID gains, thresholds, and duty cycle limits.
 
-<p align="center">
-  <a href="https://youtu.be/bc_Xk7g2EeM" target="_blank">
-    <img src="https://img.youtube.com/vi/bc_Xk7g2EeM/maxresdefault.jpg" width="48%" alt="PCB Moving Demo" />
-  </a>
-  <a href="https://youtube.com/shorts/5PlMwJj3upM" target="_blank">
-    <img src="https://img.youtube.com/vi/5PlMwJj3upM/maxresdefault.jpg" width="48%" alt="PCB U-Turn Demo" />
-  </a>
-</p>
+- [PCB Moving demo](https://youtu.be/bc_Xk7g2EeM?si=MZNx7HeaQ7R1oC5N)
+- [PCB Uturn Demo](https://youtube.com/shorts/5PlMwJj3upM?si=1hRui6c3kObpAs3I)
 
 ## Project Overview
 
@@ -44,6 +38,28 @@ Our project is about a wall-following micromouse robot built on ESP32-S3, using 
 | **IR Right Diag (`IR_PIN_3`)**| ADC Input | ADC1 CH7 GPIO 8|
 | **Encoder Motors** | Channel A | GPIO 5 / GPIO 4 |
 | **Encoder Motors** | Channel B | GPIO 6 / GPIO 7 |
+
+## Project Structure
+
+```
+LeftWallFollow/
+├── CMakeLists.txt
+├── include/
+│   ├── ir.h      — IR sensor pin/channel definitions 
+│   ├── motor.h    — motor GPIO pins, MCPWM function declarations
+│   ├── tof.h       — I2C bus config, VL53L0X register addresses
+│   └── wifi.h       — tunable-parameter externs (Kp, Kd, thresholds,
+│                       duty limits), webserver declarations
+├── main/
+│   ├── CMakeLists.txt
+│   └── main.c        — app_main(): independent-rate sensor/logic timer,
+│                        left-hand-follow, PD wall-centering
+└── src/
+    ├── ir.c    — ADC oneshot init, channel config
+    ├── motor.c  — MCPWM setup, motor run/reverse/brake, turn maneuvers
+    ├── tof.c     — I2C init, VL53L0X register read/write, distance calc
+    └── wifi.c     — STA WiFi connection, HTTP tuning page
+```
 
 ## CAD and PCB Models
 
