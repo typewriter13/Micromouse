@@ -7,8 +7,14 @@ MicroMouse is a small autonomous robot designed to navigate and solve a maze com
 
 Our project is about a wall-following micromouse robot built on ESP32-S3, using IR proximity sensors for wall-centering and junction detection, a VL53L0X ToF sensor for front-wall stopping, quadrature encoders for wheel feedback, and a WiFi-based web UI for live tuning of PID gains, thresholds, and duty cycle limits.
 
-- [PCB Moving demo](https://youtu.be/bc_Xk7g2EeM?si=MZNx7HeaQ7R1oC5N)
-- [PCB Uturn Demo](https://youtube.com/shorts/5PlMwJj3upM?si=1hRui6c3kObpAs3I)
+<p align="center">
+  <a href="https://youtu.be/bc_Xk7g2EeM" target="_blank">
+    <img src="https://img.youtube.com/vi/bc_Xk7g2EeM/maxresdefault.jpg" width="48%" alt="PCB Moving Demo" />
+  </a>
+  <a href="https://youtube.com/shorts/5PlMwJj3upM" target="_blank">
+    <img src="https://img.youtube.com/vi/5PlMwJj3upM/maxresdefault.jpg" width="48%" alt="PCB U-Turn Demo" />
+  </a>
+</p>
 
 ## Project Overview
 
