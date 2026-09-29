@@ -75,8 +75,8 @@ void turn_right(void)
 
 void turn_around(void)
 {
-    pwm_right_motor_run(30.0);
-    pwm_left_motor_reverse(30.0);
+    pwm_right_motor_run(max_duty_cycle);
+    pwm_left_motor_reverse(max_duty_cycle);
     vTaskDelay(100 / portTICK_PERIOD_MS);
     pwm_motors_brake();
 }

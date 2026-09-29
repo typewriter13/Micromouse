@@ -6,8 +6,8 @@
 #include "driver/mcpwm.h"
 #include "soc/mcpwm_periph.h"
 
-#define MOTOR_PIN_0A 5
-#define MOTOR_PIN_0B 4
+#define MOTOR_PIN_0A 4
+#define MOTOR_PIN_0B 5
 #define MOTOR_PIN_1A 6
 #define MOTOR_PIN_1B 7
 

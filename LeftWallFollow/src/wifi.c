@@ -176,6 +176,7 @@ httpd_handle_t start_webserver(void)
 {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.core_id = 1;
+    config.stack_size = 8192;
     httpd_handle_t server = NULL;
 
     httpd_uri_t uri_get = {

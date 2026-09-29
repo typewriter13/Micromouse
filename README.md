@@ -35,7 +35,7 @@ Our project is about a wall-following micromouse robot built on ESP32-S3, using 
 | **IR Left (`IR_PIN_1`)** | ADC Input | ADC1 CH8 GPIO 9|
 | **IR Left Diag (`IR_PIN_2`)** | ADC Input | ADC1 CH9 GPIO 10|
 | **IR Right Diag (`IR_PIN_3`)**| ADC Input | ADC1 CH7 GPIO 8|
-| **Encoder Motors** | Channel A | GPIO 5 / GPIO 4 |
+| **Encoder Motors** | Channel A | GPIO 4 / GPIO 5 |
 | **Encoder Motors** | Channel B | GPIO 6 / GPIO 7 |
 
 # Repository Structure
